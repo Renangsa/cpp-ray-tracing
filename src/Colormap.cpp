@@ -28,10 +28,10 @@ A classe precisa ser instânciada passando o caminho do arquivo .mtl corresponde
 using namespace std;
 
 struct MaterialProperties {
-    vetor kd;  // Difuso
-    vetor ks;  // Specular
-    vetor ke;  // Emissivo
-    vetor ka;  // Ambiente
+    Vector kd;  // Difuso
+    Vector ks;  // Specular
+    Vector ke;  // Emissivo
+    Vector ka;  // Ambiente
     double ns; // Brilho
     double ni; // Índice de refração
     double d;  // Opacidade
@@ -72,25 +72,25 @@ public:
                 double kdR, kdG, kdB;
                 iss >> kdR >> kdG >> kdB;
                 if (!currentMaterial.empty()) {
-                    mp[currentMaterial].kd = vetor(kdR, kdG, kdB);
+                    mp[currentMaterial].kd = Vector(kdR, kdG, kdB);
                 }
             } else if (keyword == "Ks") {
                 double ksR, ksG, ksB;
                 iss >> ksR >> ksG >> ksB;
                 if (!currentMaterial.empty()) {
-                    mp[currentMaterial].ks = vetor(ksR, ksG, ksB);
+                    mp[currentMaterial].ks = Vector(ksR, ksG, ksB);
                 }
             } else if (keyword == "Ke") {
                 double keR, keG, keB;
                 iss >> keR >> keG >> keB;
                 if (!currentMaterial.empty()) {
-                    mp[currentMaterial].ke = vetor(keR, keG, keB);
+                    mp[currentMaterial].ke = Vector(keR, keG, keB);
                 }
             } else if (keyword == "Ka") {
                 double kaR, kaG, kaB;
                 iss >> kaR >> kaG >> kaB;
                 if (!currentMaterial.empty()) {
-                    mp[currentMaterial].ka = vetor(kaR, kaG, kaB);
+                    mp[currentMaterial].ka = Vector(kaR, kaG, kaB);
                 }
             } else if (keyword == "Ns") {
                 iss >> mp[currentMaterial].ns;
@@ -104,12 +104,12 @@ public:
         mtlFile.close();
     }
 
-    vetor getColor(string& s){
+    Vector getColor(string& s){
         if (mp.find(s) != mp.end()) {
             return mp[s].kd;
         } else {
             cerr << "Error: cor " << s << " indefinida no arquivo .mtl\n";
-            return vetor(0,0,0);
+            return Vector(0,0,0);
         }
     }
 

@@ -16,3 +16,6 @@ cmake-build-*/
 *.ppm
 *.exe
 *.out
+
+build
+lib

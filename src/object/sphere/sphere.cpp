@@ -18,11 +18,8 @@ Intersection Sphere::intersect(Vector::ref vector, Point::ref camera) {
 
 	if (delta < 0) return false;
 
-	Vector unity = vector;
-	unity.normalize();
-
 	double parameter = (-second - std::sqrt(delta)) / (2 * first);
-	Point hit_point = camera + (unity * parameter);
+	Point hit_point = camera + (vector * parameter);
 
 	Vector hit_vector = hit_point - camera;
 	return {hit_vector.size(), this->color};

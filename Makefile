@@ -179,7 +179,6 @@ help:
 	@echo "    make  ==>   Builds the program"
 	@echo "    make run  ==>   Executes the program"
 	@echo "    make rebuild  ==>   Rebuilds the program"
-	@echo "    make compile  ==>   Builds the dependency packages"
 	@echo ""
 	@echo ""
 	@echo "    make create file=<name>  ==>   Creates <name>.cpp and <name>.hpp in 'src/<name>/'"

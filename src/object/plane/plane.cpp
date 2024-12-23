@@ -16,9 +16,9 @@ Intersection Plane::intersect(Vector::ref vector, Point::ref camera) {
 	double first = (this->position - pixel) & this->normal;
 	double second = unity & this->normal;
 
-	if (first == 0) return false;
+	if (second == 0) return false;
 
-	double offset = second / first;
+	double offset = first / second;
 	if (offset <= 0) return false;
 
 	Point hit_point = pixel + (unity * offset);

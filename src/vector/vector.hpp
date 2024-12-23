@@ -23,20 +23,17 @@ class Vector {
 
 	// * Methods
    public:
+	double size();
 	void normalize();
 
 	Vector operator+(const Vector other) const;
 	Vector operator-(const Vector other) const;
 
-	Vector operator+(const Vector::ref other) const;
-	Vector operator-(const Vector::ref other) const;
 	Vector operator*(const Vector::ref other) const;
-
-	// Vector operator-=(const)
-
 	Vector operator*(const double scalar) const;
 
 	void operator*=(const double scalar);
+	double operator&(const Vector other) const;
 };
 
 std::istream& operator>>(std::istream& input, const Vector::ref vector);

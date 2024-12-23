@@ -2,7 +2,6 @@
 
 #include <cmath>
 
-#include "point/point.hpp"
 #include "utils/utils.hpp"
 
 std::istream& operator>>(std::istream& input, Vector::ref vector) {
@@ -15,8 +14,12 @@ std::ostream& operator<<(std::ostream& output, const Vector::ref vector) {
 	return output;
 }
 
+double Vector::size() {
+	return sqrt(sqr(this->x) + sqr(this->y) + sqr(this->z));
+}
+
 void Vector::normalize() {
-	double length = sqrt(sqr(x) + sqr(y) + sqr(z));
+	double length = this->size();
 
 	this->x /= length;
 	this->y /= length;
@@ -26,14 +29,8 @@ void Vector::normalize() {
 Vector Vector::operator+(const Vector other) const {
 	return Vector(this->x + other.x, this->y + other.y, this->z + other.z);
 }
-Vector Vector::operator+(const Vector::ref other) const {
-	return Vector(this->x + other.x, this->y + other.y, this->z + other.z);
-}
 
 Vector Vector::operator-(const Vector other) const {
-	return Vector(this->x - other.x, this->y - other.y, this->z - other.z);
-}
-Vector Vector::operator-(const Vector::ref other) const {
 	return Vector(this->x - other.x, this->y - other.y, this->z - other.z);
 }
 
@@ -43,6 +40,10 @@ Vector Vector::operator*(const Vector::ref other) const {
 	double k = (this->x * other.y) - (this->y * other.x);
 
 	return {i, j, k};
+}
+
+double Vector::operator&(const Vector other) const {
+	return (this->x * other.x) + (this->y * other.y) + (this->z * other.z);
 }
 
 Vector Vector::operator*(const double scalar) const {

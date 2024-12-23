@@ -25,7 +25,12 @@ class Point {
 
 	// * Methods
 
-	Vector operator-(Point::ref other);
+	Vector operator-(const Point other) const;
+	Point operator+(const Vector other) const;
+
+	operator Vector() {
+		return {this->x, this->y, this->z};
+	}
 };
 
 std::istream& operator>>(std::istream& input, Point& point);

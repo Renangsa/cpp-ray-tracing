@@ -16,13 +16,18 @@ struct Screen {
 struct ColorChannel {
 	byte value;
 
-	ColorChannel() {}
+	ColorChannel() : value(0) {}
+	ColorChannel(byte value) : def(value) {}
 	ColorChannel(double value) {
 		this->value = static_cast<byte>(value * 255);
 	}
 
 	void operator=(double value) {
 		this->value = static_cast<byte>(value * 255);
+	}
+
+	operator int() {
+		return static_cast<int>(this->value);
 	}
 };
 
@@ -33,6 +38,7 @@ struct Color {
 	ColorChannel blue;
 
 	// Color(byte red, byte green, byte blue) : def(red), def(green), def(blue) {}
-	Color() {}
+	Color() : red(), green(), blue() {}
+	Color(byte red, byte green, byte blue) : def(red), def(green), def(blue) {}
 	Color(double red, double green, double blue) : def(red), def(green), def(blue) {}
 };

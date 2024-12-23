@@ -9,8 +9,8 @@
 using std::cout, std::endl;
 
 int main() {
-	Scene scene("assets/scene.in");
-	Camera camera("assets/camera.in");
+	Scene scene("assets/scene1.in");
+	Camera camera("assets/camera1.in");
 
 	Image::ptr image = camera.render(scene);
 	pixelmap::save("assets/image.ppm", image);

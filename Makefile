@@ -9,12 +9,6 @@ export path ?= $(realpath src/)
 
 # -----< VARIABLES SECTION >----- #
 
-# Locations to packages
-upstream = /home/gabriel/Projects/algorithms/packages/makefile
-location = /home/gabriel/Projects/.repo
-repositories = $(sort $(foreach repo,$(file < $(location)),$(wildcard $(repo))))
-index = $(firstword $(filter %/$1,$(repositories)))
-
 
 # File Functions
 readfile = $(foreach word,$(file < $1),$(word))
@@ -64,7 +58,7 @@ rebuild: clear build/$(program)
 
 debug: debugger build $(main) $(structure) $(objects) $(headers)
 	$(eval directories=$(foreach item,$(path),-I$(item)))
-	@g++ $(flags) $(directories) $(main) $(objects) $(dependencies) -o debugger/$(program) 
+	@g++ $(flags) $(directories) $(main) $(objects) $(dependencies) -o debugger 
 	@echo "Build: Debug"
 	@echo
 
@@ -153,15 +147,11 @@ build:
   endif
 	@mkdir build
 
-lib:
-	@mkdir lib
-
 packages:
 	@mkdir packages
 
 debugger:
 	@rm -rf lib build
-	@mkdir debugger
 
 
 

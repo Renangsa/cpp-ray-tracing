@@ -9,7 +9,7 @@ std::istream& operator>>(std::istream& input, ColorChannel& color) {
 }
 
 std::ostream& operator<<(std::ostream& output, ColorChannel& color) {
-	output << (int)color.value;
+	output << color.value;
 	return output;
 }
 

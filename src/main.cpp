@@ -13,5 +13,5 @@ int main() {
 	Camera camera("assets/camera.in");
 
 	Image::ptr image = camera.render(scene);
-	save_pixelmap("assets/image.ppm", *image);
+	pixelmap::save("assets/image.ppm", image);
 }

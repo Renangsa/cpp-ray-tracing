@@ -4,6 +4,8 @@
 #include <iostream>
 #include <sstream>
 
+#include "raycast/raycast.hpp"
+
 Camera::Camera(string filename) {
 	std::ifstream file(filename);
 
@@ -25,7 +27,7 @@ Camera::Camera(string filename) {
 	this->target = Point(tx, ty, tz);
 
 	this->up = Vector(ux, uy, uz);
-	this->screen = {vertical, horizontal};
+	this->screen = {horizontal, vertical};
 
 	this->distance = distance;
 }
@@ -50,23 +52,14 @@ Image::ptr Camera::render(Scene::ref scene) {
 	Image::ptr image_ptr = new Image(this->screen);
 
 	Image::ref image = *image_ptr;
-	for (int i = 0; i < this->screen.horizontal; i++) {
-		for (int j = 0; j < this->screen.vertical; j++) {
-			Vector ray = corner + (horizontal_offset * i) + (vertical_offset * (this->screen.horizontal - j - 1));
+	for (int i = 0; i < this->screen.vertical; i++) {
+		for (int j = 0; j < this->screen.horizontal; j++) {
+			Vector ray = corner + (horizontal_offset * j) + (vertical_offset * (this->screen.horizontal - i - 1));
 
-			bool intersected = false;
-			for (auto object : scene) {
-				intersected = object->intersect(ray, this->position);
+			RayCast raycast(this->position, ray);
+			Color color = raycast.trace(scene);
 
-				if (intersected) {
-					image[i][j] = object->color;
-					break;
-				}
-			}
-
-			if (!intersected) {
-				image[i][j] = {0, 0, 0};
-			}
+			image[i][j] = color;
 		}
 	}
 

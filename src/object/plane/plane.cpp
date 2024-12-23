@@ -6,9 +6,25 @@
 #include "point/point.hpp"
 #include "utils/colorstream.hpp"
 #include "utils/utils.hpp"
+#include "vector/vector.hpp"
 
-bool Plane::intersect(Vector::ref vector, Point::ref camera) {
-	return false;
+Intersection Plane::intersect(Vector::ref vector, Point::ref camera) {
+	Point pixel = camera + vector;
+	Vector unity = vector;
+	unity.normalize();
+
+	double first = (this->position - pixel) & this->normal;
+	double second = unity & this->normal;
+
+	if (first == 0) return false;
+
+	double offset = second / first;
+	if (offset <= 0) return false;
+
+	Point hit_point = pixel + (unity * offset);
+	Vector hit_vector = hit_point - camera;
+
+	return {hit_vector.size(), this->color};
 }
 
 void Plane::print() {

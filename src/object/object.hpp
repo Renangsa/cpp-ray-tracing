@@ -8,6 +8,7 @@
 
 #include "point/point.hpp"
 #include "utils/colorstream.hpp"
+#include "utils/intersection.hpp"
 #include "utils/utils.hpp"
 #include "vector/vector.hpp"
 
@@ -31,5 +32,5 @@ class Object {
 	// * Methods
    public:
 	virtual void print() = 0;
-	virtual bool intersect(Vector::ref vector, Point::ref camera) = 0;
+	virtual Intersection intersect(Vector::ref vector, Point::ref camera) = 0;
 };

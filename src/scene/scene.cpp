@@ -31,6 +31,7 @@ Scene::ref Scene::operator<<(Object::ptr object) {
 	return *this;
 }
 
+Color Scene::color() const { return {}; }
 int Scene::size() const { return this->objects.size(); }
 void Scene::insert(Object::ptr object) { this->objects.push_back(object); }
 

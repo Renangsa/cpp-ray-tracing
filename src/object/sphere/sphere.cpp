@@ -1,22 +1,31 @@
 #include "sphere.hpp"
 
+#include <cmath>
 #include <fstream>
 #include <iostream>
 
-#include "point/point.hpp"
 #include "utils/colorstream.hpp"
 #include "utils/utils.hpp"
 
-bool Sphere::intersect(Vector::ref vector, Point::ref camera) {
-	Point point = camera - this->position;
+Intersection Sphere::intersect(Vector::ref vector, Point::ref camera) {
+	Vector offset = camera - this->position;
 
-	double first = sqr(vector.x) + sqr(vector.y) + sqr(vector.z);
-	double second = (vector.x * point.x) + (vector.y * point.y) + (vector.z * point.z);
-	double third = sqr(point.x) + sqr(point.y) + sqr(point.z) - sqr(this->radius);
+	double first = vector & vector;
+	double second = 2 * (vector & offset);
+	double third = (offset & offset) - sqr(this->radius);
 
 	double delta = sqr(second) - 4 * first * third;
 
-	return delta > 0;
+	if (delta < 0) return false;
+
+	Vector unity = vector;
+	unity.normalize();
+
+	double parameter = (-second - std::sqrt(delta)) / (2 * first);
+	Point hit_point = camera + (unity * parameter);
+
+	Vector hit_vector = hit_point - camera;
+	return {hit_vector.size(), this->color};
 }
 
 void Sphere::print() {

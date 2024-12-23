@@ -48,6 +48,7 @@ class Scene {
    public:
 	void insert(Object::ptr object);
 	int size() const;
+	Color color() const;
 
 	Scene::ref operator<<(Object::ptr object);
 

@@ -19,6 +19,8 @@ Intersection Sphere::intersect(Vector::ref vector, Point::ref camera) {
 	if (delta < 0) return false;
 
 	double parameter = (-second - std::sqrt(delta)) / (2 * first);
+
+	if (parameter < 0) return false;
 	Point hit_point = camera + (vector * parameter);
 
 	Vector hit_vector = hit_point - camera;

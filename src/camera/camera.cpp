@@ -10,25 +10,16 @@ Camera::Camera(string filename) {
 	std::ifstream file(filename);
 
 	// ? Input values
-	double px, py, pz;
-	double tx, ty, tz;
-	double ux, uy, uz;
 	double distance;
 	int horizontal, vertical;
 
 	// ? Reading Values
-	file >> px >> py >> pz;
-	file >> tx >> ty >> tz;
-	file >> ux >> uy >> uz;
+	file >> this->position;
+	file >> this->target;
+	file >> this->up;
 	file >> distance >> horizontal >> vertical;
 
-	// ? Setting values to object properties
-	this->position = Point(px, py, pz);
-	this->target = Point(tx, ty, tz);
-
-	this->up = Vector(ux, uy, uz);
 	this->screen = {horizontal, vertical};
-
 	this->distance = distance;
 }
 

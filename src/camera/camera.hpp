@@ -1,16 +1,22 @@
 #pragma once
 
+#include <fstream>
+#include <string>
 #include <vector>
 
 #include "point/point.hpp"
-#include "scene/scene.hpp"
-#include "utils/image.hpp"
 #include "utils/utils.hpp"
 #include "vector/vector.hpp"
 
 class Camera {
+	// * Types
+   public:
+	using ref = Camera&;
+	using ptr = Camera*;
+
 	// * Properties
-   private:
+   public:
+	std::string name;
 	Point position;
 	Point target;
 	Vector up;
@@ -19,7 +25,8 @@ class Camera {
 
 	// * Constructors
    public:
+	Camera() {}
 	Camera(string filename);
-
-	Image::ptr render(Scene::ref scene);
+	Camera(std::string filename);
+	Camera(std::ifstream& input);
 };

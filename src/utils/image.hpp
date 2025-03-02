@@ -1,6 +1,7 @@
 #pragma once
 
 #include <functional>
+#include <string>
 #include <vector>
 
 #include "utils/utils.hpp"
@@ -10,6 +11,7 @@ struct Image {
    public:
 	using ref = Image&;
 	using ptr = Image*;
+	using set = std::vector<Image::ptr>;
 
    private:
 	using raster = std::vector<Color>;
@@ -19,14 +21,15 @@ struct Image {
    public:
 	const int width;
 	const int height;
+	std::string camera;
 
    private:
 	Image::pixels data;
 
 	// * Constructors
    public:
-	Image(Screen screen) : Image(screen.horizontal, screen.vertical) {}
-	Image(int width, int height) : def(width), def(height) {
+	Image(Screen screen, std::string camera) : Image(screen.horizontal, screen.vertical, camera) {}
+	Image(int width, int height, std::string camera) : def(width), def(height), def(camera) {
 		this->data = Image::pixels(height, Image::raster(width));
 	}
 

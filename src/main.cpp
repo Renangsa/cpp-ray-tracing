@@ -10,8 +10,7 @@ using std::cout, std::endl;
 
 int main() {
 	Scene scene("assets/scene2.in");
-	Camera camera("assets/camera1.in");
 
-	Image::ptr image = camera.render(scene);
-	pixelmap::save("assets/image.ppm", image);
+	Image::set render = scene.render();
+	pixelmap::save("images/image.ppm", render);
 }

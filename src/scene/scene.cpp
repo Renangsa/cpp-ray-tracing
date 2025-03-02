@@ -14,9 +14,15 @@ Scene::Scene(string filename) {
 	Object::registry registry = load_object_types();
 
 	std::string object_type;
+
 	while (file >> object_type) {
+		if (object_type == "camera") {
+			this->cameras.push_back(new Camera(file));
+			continue;
+		}
+
 		if (!registry.count(object_type)) {
-			break;
+			continue;
 		}
 
 		Object::factory factory = registry[object_type];

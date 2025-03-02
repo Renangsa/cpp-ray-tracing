@@ -1,3 +1,9 @@
+camera
+file: assets/camera/camera1.in
+
+camera
+file: assets/camera/camera2.in
+
 sphere
 0 100 800
 75

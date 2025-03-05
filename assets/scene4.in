@@ -1,0 +1,44 @@
+camera
+file: assets/camera/camera1.in
+
+camera
+file: assets/camera/camera2.in
+
+camera
+file: assets/camera/camera3.in
+
+plane
+0 -500 0
+0 1 0
+0.5 0.5 0.5
+
+plane
+0 0 1500
+0 0 -1
+0.5 0.7 0.5
+
+plane
+500 0 0
+-1 0 0
+0.5 0.5 0.7
+
+sphere
+400 100 1400
+25
+1 1 1
+
+sphere
+-200 100 1400
+25
+1 1 1
+
+sphere
+-100 500 1500
+25
+1 1 1
+
+triangle
+400 100 1400
+-200 100 1400
+-100 500 1500
+1 0 0

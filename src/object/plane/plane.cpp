@@ -24,7 +24,7 @@ Intersection Plane::intersect(Vector::ref vector, Point::ref camera) {
 	Point hit_point = pixel + (unity * offset);
 	Vector hit_vector = hit_point - camera;
 
-	return {hit_vector.size(), this->color};
+	return Intersection(hit_vector.size(), hit_point, this->normal, this->color);
 }
 
 void Plane::print() {

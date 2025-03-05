@@ -2,14 +2,17 @@
 
 #include "object/object.hpp"
 
-class Plane : public Object {
+class Triangle : public Object {
 	// * Properties
-   public:
+   private:
+	double area;
+	Vector first;
+	Vector second;
 	Vector normal;
 
 	// * Constructor
    public:
-	Plane(Point point, Vector normal, Color color) : Object(point, color), def(normal) {}
+	Triangle(Point::ref first, Point::ref second, Point::ref third, Color color);
 
 	// * Methods
    public:

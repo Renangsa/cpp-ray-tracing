@@ -9,7 +9,7 @@
 using std::cout, std::endl;
 
 int main() {
-	Scene scene("assets/scene2.in");
+	Scene scene("assets/scene3.in");
 
 	Image::set render = scene.render();
 	pixelmap::save("images/image.ppm", render);

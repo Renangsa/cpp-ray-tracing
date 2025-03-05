@@ -21,10 +21,12 @@ Intersection Sphere::intersect(Vector::ref vector, Point::ref camera) {
 	double parameter = (-second - std::sqrt(delta)) / (2 * first);
 
 	if (parameter < 0) return false;
-	Point hit_point = camera + (vector * parameter);
 
+	Point hit_point = camera + (vector * parameter);
 	Vector hit_vector = hit_point - camera;
-	return {hit_vector.size(), this->color};
+	Vector hit_normal = hit_point - this->position;
+
+	return Intersection(hit_vector.size(), hit_point, hit_normal, this->color);
 }
 
 void Sphere::print() {

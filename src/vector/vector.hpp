@@ -26,6 +26,8 @@ class Vector {
 	double size();
 	void normalize();
 
+	static Vector zero() { return Vector(0, 0, 0); }
+
 	Vector operator+(const Vector other) const;
 	Vector operator-(const Vector other) const;
 

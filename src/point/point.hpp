@@ -25,6 +25,8 @@ class Point {
 
 	// * Methods
 
+	static Point zero() { return Point(); }
+
 	Vector operator-(const Point other) const;
 	Point operator+(const Vector other) const;
 

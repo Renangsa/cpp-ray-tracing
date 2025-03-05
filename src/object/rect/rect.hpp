@@ -2,14 +2,15 @@
 
 #include "object/object.hpp"
 
-class Plane : public Object {
+class Rect : public Object {
 	// * Properties
-   public:
+   private:
+	double size;
 	Vector normal;
 
 	// * Constructor
    public:
-	Plane(Point point, Vector normal, Color color) : Object(point, color), def(normal) {}
+	Rect(Point center, Vector normal, double size, Color color) : Object(center, color), def(size), def(normal) {}
 
 	// * Methods
    public:

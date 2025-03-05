@@ -1,10 +1,6 @@
 #pragma once
 
 #include "object/object.hpp"
-#include "point/point.hpp"
-#include "utils/intersection.hpp"
-#include "utils/utils.hpp"
-#include "vector/vector.hpp"
 
 class Sphere : public Object {
 	// * Properties

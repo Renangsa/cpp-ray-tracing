@@ -1,4 +1,4 @@
-program = RayTracing
+program = ray_tracing
 
 # Flags
 hide = --no-print-directory --silent
@@ -38,22 +38,21 @@ objects = $(subst .cpp,.o,$(sources))
 # -----< BUILD PROGRAM SECTION >----- #
 
 # Build program
-build/$(program): build $(main) $(structure) $(objects) $(headers)
+$(program): build $(main) $(structure) $(objects) $(headers)
 	@echo "Building Executable"
-	@echo " Generating $@"
-	@echo "   Compiling $(main)"
-	@g++ $(flags) $(foreach item,$(path),-I$(item)) $(main) $(objects) $(dependencies) -o build/$(program)
+	@echo "- Generating $@"
+	@g++ $(flags) $(foreach item,$(path),-I$(item)) $(main) $(objects) $(dependencies) -o $(program)
 	@echo "Finished Building"
 	@echo
 
 
 # Run program
-run: build/$(program)
-	@build/$(program)
+run: $(program)
+	@./$(program)
 
 
 # Clean files and rebuild
-rebuild: clear build/$(program)
+rebuild: clear $(program)
 
 
 debug: debugger build $(main) $(structure) $(objects) $(headers)
@@ -69,7 +68,7 @@ debug: debugger build $(main) $(structure) $(objects) $(headers)
 # Build object files
 .SECONDEXPANSION:
 build/%.o: src/%.cpp $$(wildcard src/$$*.hpp)
-	@echo "    Compiling: $@"
+	@echo "- Compiling: $@"
 	@g++ $(flags) $(foreach item,$(path),-I$(item)) -c $< -o $@
 
 
@@ -137,7 +136,6 @@ header:
 
 # Creates source subfolders
 build/%:
-	@echo "  Creating: $@"
 	@mkdir -p $@
 
 # Creates folders
@@ -159,14 +157,14 @@ debugger:
 
 # Clear project
 clear:
-	@rm -rf build debugger
+	@rm -rf build debugger $(program)
 
 clear-lib:
 	@rm -rf lib packages/**/Makefile
 
 # Clear every build file
 purge:
-	@rm -rf lib build packages debugger exports/*.gch
+	@rm -rf lib build packages debugger exports/*.gch $(program)
 
 
 

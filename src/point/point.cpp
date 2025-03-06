@@ -10,6 +10,14 @@ std::ostream& operator<<(std::ostream& output, const Point& point) {
 	return output;
 }
 
+Point::ref Point::operator+=(const Vector other) {
+	this->x += other.x;
+	this->y += other.y;
+	this->z += other.z;
+
+	return *this;
+}
+
 Point Point::operator+(const Vector other) const {
 	return {this->x + other.x, this->y + other.y, this->z + other.z};
 }

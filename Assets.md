@@ -13,10 +13,11 @@ To define a object, first write the object type (all lowercase), followed by its
 [...definition...]
 ```
 
-Some objects, can be defined in an outside file. But not all of them, it will be specified in the object description.
+Some objects, can be defined in an outside file. But not all of them, it will be specified in the object description. When defining some object in other file, a position can be passed, and all the coordinates in the file, will be in reference to the positions specified. The position must come before the file.
 
 ```javascript
 <object_type>
+position: <object_position>
 file: <file_path>
 ```
 
@@ -74,6 +75,24 @@ px py pz	// (px, py, pz): first vertice point
 qx qy qz	// (qx, qy, qz): second vertice point
 rx ry rz	// (rx, ry, rz): third vertice point
 R G B
+```
+
+## Mesh Type
+
+### Mesh
+
+This is a mesh of triangles. Each triangle forms the face of a 3D object.
+
+> Must be defined separately
+
+```javascript
+# Comments 	// [#] will be ignored
+o name		// [o] object_name
+v x y z		// [v] (x, y, z): vertice point
+[...]		// Multiple vertices can be defined
+
+f i j k		// [f] <i, j, k>: indexes the vertices of the triangle
+[...]		// Multiple faces can be defined
 ```
 
 <!--

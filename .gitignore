@@ -16,6 +16,7 @@ cmake-build-*/
 *.ppm
 *.exe
 *.out
+*.jpg
 ray_tracing
 
 images

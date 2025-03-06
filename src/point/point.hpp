@@ -29,6 +29,7 @@ class Point {
 
 	Vector operator-(const Point other) const;
 	Point operator+(const Vector other) const;
+	Point::ref operator+=(const Vector other);
 
 	operator Vector() {
 		return {this->x, this->y, this->z};

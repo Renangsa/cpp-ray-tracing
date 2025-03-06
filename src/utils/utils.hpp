@@ -41,4 +41,7 @@ struct Color {
 	Color() : red(), green(), blue() {}
 	Color(byte red, byte green, byte blue) : def(red), def(green), def(blue) {}
 	Color(double red, double green, double blue) : def(red), def(green), def(blue) {}
+
+	static Color black() { return {0.0, 0.0, 0.0}; }
+	static Color white() { return {1.0, 1.0, 1.0}; }
 };

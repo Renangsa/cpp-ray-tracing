@@ -24,7 +24,3 @@ plane
 mesh
 position: 300 -200 1500
 file: assets/inputs/big_cube.obj
-
-mesh
-position: 0 400 -500
-file: assets/inputs/teacup.obj

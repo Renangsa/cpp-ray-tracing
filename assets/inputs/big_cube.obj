@@ -2,7 +2,7 @@
 mtllib assets/materials/cubo.mtl
 
 o Cube
-usemtl Material.001
+usemtl Material.002
 v 0 0 0
 v 200 0 0
 v 0 200 0

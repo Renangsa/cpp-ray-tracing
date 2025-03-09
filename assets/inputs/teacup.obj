@@ -1,4 +1,7 @@
 # Exported from 3D Builder
+mtllib assets/materials/teacup.mtl
+
+usemtl Material.002
 o Object.1
 v 12.313456 -18.433020 1.822575
 v 8.481507 -20.482784 1.822575

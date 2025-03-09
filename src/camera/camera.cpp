@@ -1,14 +1,8 @@
 #include "camera.hpp"
 
 #include <fstream>
-#include <iostream>
-#include <sstream>
 
-#include "raycast/raycast.hpp"
-
-Camera::Camera(std::string filename) : Camera(filename.c_str()) {}
-
-Camera::Camera(string filename) {
+Camera::Camera(std::string filename) {
 	std::ifstream file(filename);
 	*this = Camera(file);
 }

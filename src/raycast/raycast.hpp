@@ -2,6 +2,7 @@
 
 #include "point/point.hpp"
 #include "scene/scene.hpp"
+#include "utils/intersection.hpp"
 #include "utils/utils.hpp"
 #include "vector/vector.hpp"
 
@@ -17,5 +18,5 @@ class RayCast {
 
 	// * Methods
    public:
-	Color trace(Scene::ref scene);
+	Intersection trace(Scene::ref scene);
 };

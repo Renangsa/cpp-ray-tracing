@@ -25,6 +25,7 @@ Intersection Sphere::intersect(Vector::ref vector, Point::ref camera) {
 	Point hit_point = camera + (vector * parameter);
 	Vector hit_vector = hit_point - camera;
 	Vector hit_normal = hit_point - this->position;
+	hit_normal.normalize();
 
 	return Intersection(hit_vector.size(), hit_point, hit_normal, this->color);
 }

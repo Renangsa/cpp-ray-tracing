@@ -3,8 +3,10 @@
 #include <vector>
 
 #include "camera/camera.hpp"
+#include "object/light.hpp"
 #include "object/object.hpp"
 #include "utils/image.hpp"
+#include "utils/intersection.hpp"
 #include "utils/utils.hpp"
 
 struct SceneIterator {
@@ -37,11 +39,14 @@ class Scene {
 
    private:
 	using views = std::vector<Camera::ptr>;
+	using lights = std::vector<Light::ptr>;
 	using storage = std::vector<Object::ptr>;
 
 	// * Properties
    private:
+	Color environment;
 	Scene::views cameras;
+	Scene::lights sources;
 	Scene::storage objects;
 
 	// * Constructors
@@ -50,6 +55,12 @@ class Scene {
 	~Scene() {
 		for (auto camera : this->cameras) {
 			delete camera;
+		}
+		for (auto light : this->sources) {
+			delete light;
+		}
+		for (auto object : this->objects) {
+			delete object;
 		}
 	}
 
@@ -63,6 +74,11 @@ class Scene {
 	Image::ptr render(Camera::ptr camera);
 	Image::ptr render(Camera::ref camera);
 
+   private:
+	Color process_light(Intersection::ref intersection, Point::ref spectator);
+
+	//* Operators
+   public:
 	Scene::ref operator<<(Object::ptr object);
 
 	// * Iterator

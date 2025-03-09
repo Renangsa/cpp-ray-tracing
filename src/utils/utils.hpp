@@ -14,16 +14,13 @@ struct Screen {
 };
 
 struct ColorChannel {
-	byte value;
+	double value;
 
 	ColorChannel() : value(0) {}
-	ColorChannel(byte value) : def(value) {}
-	ColorChannel(double value) {
-		this->value = static_cast<byte>(value * 255);
-	}
+	ColorChannel(double value) : def(value) {}
 
 	void operator=(double value) {
-		this->value = static_cast<byte>(value * 255);
+		this->value = value;
 	}
 
 	operator int() {
@@ -37,11 +34,13 @@ struct Color {
 	ColorChannel green;
 	ColorChannel blue;
 
-	// Color(byte red, byte green, byte blue) : def(red), def(green), def(blue) {}
 	Color() : red(), green(), blue() {}
-	Color(byte red, byte green, byte blue) : def(red), def(green), def(blue) {}
+	Color(double value) : red(value), green(value), blue(value) {}
 	Color(double red, double green, double blue) : def(red), def(green), def(blue) {}
 
-	static Color black() { return {0.0, 0.0, 0.0}; }
-	static Color white() { return {1.0, 1.0, 1.0}; }
+	static Color black() { return {0, 0, 0}; }
+	static Color white() { return {1, 1, 1}; }
+
+	Color& operator+=(Color& other);
+	Color& operator+=(Color&& other);
 };

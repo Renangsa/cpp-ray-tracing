@@ -5,6 +5,7 @@
 #include <sstream>
 #include <vector>
 
+#include "material/material.hpp"
 #include "object/sphere/sphere.hpp"
 
 Intersection Mesh::intersect(Vector::ref vector, Point::ref camera) {
@@ -20,6 +21,7 @@ Intersection Mesh::intersect(Vector::ref vector, Point::ref camera) {
 		hit_point << intersection;
 	}
 
+	hit_point.material = this->material;
 	return hit_point;
 }
 
@@ -105,6 +107,16 @@ Object::ptr Mesh::read_file(std::ifstream& input, Point::ref position) {
 		} else if (prefix == "o") {
 			std::string name;
 			input >> name;
+		} else if (prefix == "mtllib") {
+			std::string material_file;
+			input >> material_file;
+
+			Materials::import(material_file);
+		} else if (prefix == "usemtl") {
+			std::string material;
+			input >> material;
+
+			mesh->material = Materials::library[material];
 		} else {
 			std::string _;
 			std::getline(input, _);

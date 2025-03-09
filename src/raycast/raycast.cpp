@@ -1,6 +1,6 @@
 #include "raycast.hpp"
 
-Color RayCast::trace(Scene::ref scene) {
+Intersection RayCast::trace(Scene::ref scene) {
 	Intersection hit_point;
 
 	for (auto object : scene) {
@@ -9,8 +9,5 @@ Color RayCast::trace(Scene::ref scene) {
 		hit_point << intersection;
 	}
 
-	if (hit_point)
-		return hit_point.color;
-	else
-		return scene.color();
+	return hit_point;
 }

@@ -10,6 +10,8 @@ Triangle::Triangle(Point::ref first, Point::ref second, Point::ref third, Color 
 	this->second = third - first;
 	this->normal = this->first * this->second;
 
+	this->normal.normalize();
+
 	double dot_one = this->first & this->first;
 	double dot_two = this->second & this->second;
 	double dot_three = this->first & this->second;

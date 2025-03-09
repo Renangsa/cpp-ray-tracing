@@ -1,5 +1,12 @@
-#include "raycast/raycast.hpp"
 #include "scene.hpp"
+// ! Implements Scene::render
+
+#include <cmath>
+
+#include "material/material.hpp"
+#include "raycast/raycast.hpp"
+#include "utils/colorstream.hpp"
+#include "utils/intersection.hpp"
 
 Image::set Scene::render() {
 	Image::set images;
@@ -40,11 +47,43 @@ Image::ptr Scene::render(Camera::ptr camera) {
 			Vector ray = corner + (horizontal_offset * j) + (vertical_offset * (camera->screen.horizontal - i - 1));
 
 			RayCast raycast(camera->position, ray);
-			Color color = raycast.trace(*this);
+			auto intersection = raycast.trace(*this);
 
-			image[i][j] = color;
+			image[i][j] = this->process_light(intersection, camera->position);
 		}
 	}
 
 	return image_ptr;
+}
+
+Color Scene::process_light(Intersection::ref intersection, Point::ref spectator) {
+	Material::ptr material = intersection.material;
+
+	Color environmental = material->environment * this->environment;
+	Color illumination;
+
+	for (auto light : this->sources) {
+		Vector light_vector = light->position - intersection.point;
+		light_vector.normalize();
+
+		double diffusion_value = intersection.normal & light_vector;
+
+		auto part1 = light->color * intersection.color;
+		auto part2 = part1 * material->diffusion;
+
+		Color diffusion = part2 * diffusion_value;
+
+		Vector spectator_vector = spectator - intersection.point;
+		Vector reflection_vector = (intersection.normal * 2) * (intersection.normal & light_vector) - light_vector;
+
+		spectator_vector.normalize();
+		reflection_vector.normalize();
+
+		double specular_component = std::pow(reflection_vector & spectator_vector, material->roughness);
+		Color specular = light->color * material->specular * specular_component;
+
+		illumination += diffusion + specular;
+	}
+
+	return environmental + illumination;
 }

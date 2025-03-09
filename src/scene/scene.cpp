@@ -8,7 +8,7 @@
 #include "utils/utils.hpp"
 
 // Scene
-Scene::Scene(string filename) {
+Scene::Scene(string filename) : environment(Color(0.5, 0.5, 0.5)) {
 	std::ifstream file(filename);
 
 	Object::registry registry = load_object_types();
@@ -18,6 +18,11 @@ Scene::Scene(string filename) {
 	while (file >> object_type) {
 		if (object_type == "camera") {
 			this->cameras.push_back(new Camera(file));
+			continue;
+		}
+
+		if (object_type == "light") {
+			this->sources.push_back(new Light(file));
 			continue;
 		}
 

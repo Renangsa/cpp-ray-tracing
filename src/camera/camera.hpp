@@ -25,8 +25,6 @@ class Camera {
 
 	// * Constructors
    public:
-	Camera() {}
-	Camera(string filename);
 	Camera(std::string filename);
 	Camera(std::ifstream& input);
 };

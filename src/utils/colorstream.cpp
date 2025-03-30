@@ -48,6 +48,14 @@ Color operator*(Color&& first, Color& second) {
 	return {red, green, blue};
 }
 
+Color operator+(Color&& first, Color& second) {
+	double red = clamp(first.red.value + second.red.value);
+	double green = clamp(first.green.value + second.green.value);
+	double blue = clamp(first.blue.value + second.blue.value);
+
+	return {red, green, blue};
+}
+
 Color operator+(Color& first, Color& second) {
 	double red = clamp(first.red.value + second.red.value);
 	double green = clamp(first.green.value + second.green.value);

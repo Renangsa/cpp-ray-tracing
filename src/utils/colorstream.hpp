@@ -14,6 +14,7 @@ std::ostream& operator<<(std::ostream& output, Color& color);
 // ? Coefficient Operators
 Color operator*(Color&& first, Color& second);
 Color operator*(Color& first, Color& second);
+Color operator+(Color&& first, Color& second);
 Color operator+(Color& first, Color& second);
 
 Color operator*(Color&& color, double value);

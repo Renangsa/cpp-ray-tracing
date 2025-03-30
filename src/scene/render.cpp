@@ -49,14 +49,22 @@ Image::ptr Scene::render(Camera::ptr camera) {
 			RayCast raycast(camera->position, ray);
 			auto intersection = raycast.trace(*this);
 
-			image[i][j] = this->process_light(intersection, camera->position);
+			if (intersection) {
+				image[i][j] = this->process_light(intersection, camera->position, 0);
+			} else {
+				image[i][j] = 0;
+			}
 		}
 	}
 
 	return image_ptr;
 }
 
-Color Scene::process_light(Intersection::ref intersection, Point::ref spectator) {
+Color Scene::process_light(Intersection::ref intersection, Point::ref spectator, int depth) {
+	if (depth == 3) {
+		return intersection.color;
+	}
+
 	Material::ptr material = intersection.material;
 
 	Color environmental = material->environment * this->environment;
@@ -85,5 +93,21 @@ Color Scene::process_light(Intersection::ref intersection, Point::ref spectator)
 		illumination += diffusion + specular;
 	}
 
-	return environmental + illumination;
+	// * REFLECTION
+	auto vector = spectator - intersection.point;
+	auto reflected = ((intersection.normal * vector) - vector) * intersection.normal * 2;
+
+	RayCast raycast(intersection.point, reflected);
+	auto intersection_1 = raycast.trace(*this);
+
+	Color reflection_color = 0;
+	if (intersection_1) {
+		auto reflection = this->process_light(intersection_1, intersection.point, depth + 1);
+		reflection_color = material->reflection * reflection;
+	}
+
+	// * TRANSMISSION
+	// auto transmitted = vector * (1 / material->roughness);
+
+	return environmental + illumination + reflection_color;
 }

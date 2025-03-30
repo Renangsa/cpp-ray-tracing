@@ -75,7 +75,7 @@ class Scene {
 	Image::ptr render(Camera::ref camera);
 
    private:
-	Color process_light(Intersection::ref intersection, Point::ref spectator);
+	Color process_light(Intersection::ref intersection, Point::ref spectator, int depth);
 
 	//* Operators
    public:
